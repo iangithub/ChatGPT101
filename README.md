@@ -2,7 +2,7 @@
 
 ### GPTLinebot
 
-結合 OpenAI API 的 Linebot 範例，僅做為研究性質，程式碼並未做最佳化處理，用於生產環境時，請自行優化，此外串接 Line Platform 的部份，使用自行撰寫之 DotNetLineBotSDK，目前為alpha版本，支援回應文字、影音、圖卡等基本功能，發佈於Nuget https://www.nuget.org/packages/DotNetLineBotSDK
+> 結合 OpenAI API 的 Linebot 範例，僅做為研究性質，程式碼並未做最佳化處理，用於生產環境時，請自行優化，此外串接 Line Platform 的部份，使用自行撰寫之 DotNetLineBotSDK，目前為alpha版本，支援回應文字、影音、圖卡等基本功能，發佈於Nuget https://www.nuget.org/packages/DotNetLineBotSDK
 
 * LinebotController
 使用 text-davinci-003 模型，不具備上下文管理
