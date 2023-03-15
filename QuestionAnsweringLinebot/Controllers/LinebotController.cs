@@ -18,7 +18,7 @@ namespace QuestionAnsweringLinebot.Controllers
     [ApiController]
     public class LinebotController : ControllerBase
     {
-        private string channel_Access_Token = "line platform token";
+        private string channel_Access_Token = "Line platform channel key";
 
         [HttpPost]
         public async Task<IActionResult> Post()
@@ -27,14 +27,12 @@ namespace QuestionAnsweringLinebot.Controllers
 
             try
             {
-                //Get Post RawData (json format)
-                var req = HttpContext.Request;
-                using (var bodyReader = new StreamReader(stream: req.Body,
-                    encoding: Encoding.UTF8,
-                    detectEncodingFromByteOrderMarks: false,
-                    bufferSize: 1024, leaveOpen: true))
+
+                // Get the http request body
+                var body = string.Empty;
+                using (var reader = new StreamReader(Request.Body))
                 {
-                    var body = await bodyReader.ReadToEndAsync();
+                    body = await reader.ReadToEndAsync();
                     var lineReceMsg = ReceivedMessageConvert.ReceivedMessage(body);
 
                     if (lineReceMsg != null && lineReceMsg.Events[0].Type == WebhookEventType.message.ToString())
@@ -44,7 +42,7 @@ namespace QuestionAnsweringLinebot.Controllers
 
                         //找出客戶問題的對應解答
                         var ansMsg = await AzureQuestionAnsweringServiceAsync(userMsg);
-                        
+
                         //交由PT-3.5 Turbo模型進行文字潤飾
                         var chatgptMsg = await AzureOpenAi(ansMsg);
 
@@ -66,11 +64,11 @@ namespace QuestionAnsweringLinebot.Controllers
 
         private async Task<string> AzureQuestionAnsweringServiceAsync(string msg)
         {
-            Uri endpoint = new Uri("https://xxxxx.cognitiveservices.azure.com/");
+            Uri endpoint = new Uri("https://{azure service name}.cognitiveservices.azure.com/");
             AzureKeyCredential credential = new AzureKeyCredential("Azure Key Credential");
             QuestionAnsweringClient client = new QuestionAnsweringClient(endpoint, credential);
 
-            string projectName = "project name";
+            string projectName = "project Name";
             string deploymentName = "deployment Name";
             QuestionAnsweringProject project = new QuestionAnsweringProject(projectName, deploymentName);
             Response<AnswersResult> response = await client.GetAnswersAsync(msg, project);
@@ -91,7 +89,7 @@ namespace QuestionAnsweringLinebot.Controllers
         private async Task<string> AzureOpenAi(string ans)
         {
             string azureOpenApiKey = "azure OpenApi Key";
-            string azureOpenApiEndpoint = "https://xxxxxx.openai.azure.com/openai/deployments/xxxxxx/completions?api-version=2022-12-01";
+            string azureOpenApiEndpoint = "https://{azure OpenAI service name}.openai.azure.com/openai/deployments/{deploy name}/completions?api-version=2022-12-01";
 
             using (HttpClient client = new HttpClient())
             {

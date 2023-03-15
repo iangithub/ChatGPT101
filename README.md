@@ -40,3 +40,6 @@ openai.ChatCompletion.create(
 ```
 
 其中 messages 以陣列格式做為 API 參數，並納入 role 與 content 概念，可讓 gpt-3.5-turbo 模型明確識別對話的情境。
+
+### QuestionAnsweringLinebot
+LineChatbot提供Q&A問答，結合Azure Cognitive for Language的Answer questions API，找出客戶問題的對應解答，接著把該解答交由PT-3.5 Turbo模型進行文字潤飾後，再以一個客服人員的角色進行自動回覆。
