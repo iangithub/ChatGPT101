@@ -43,3 +43,5 @@ openai.ChatCompletion.create(
 
 ### QuestionAnsweringLinebot
 LineChatbot提供Q&A問答，結合Azure Cognitive for Language的Answer questions API，找出客戶問題的對應解答，接著把該解答交由PT-3.5 Turbo模型進行文字潤飾後，再以一個客服人員的角色進行自動回覆。
+* 2023/4/4 
+LinebotController 新增AOAI—GPT 4 範例，AOAI—GPT 4 在API 端點及Request、Response參數皆與GPT 3.5不同
