@@ -39,3 +39,30 @@ public class Choices
     public string Finish_reason { get; set; }
 }
 
+public class Completion_GPT4
+{
+    [JsonProperty(PropertyName = "id")]
+    public string Id { get; set; }
+    [JsonProperty(PropertyName = "object")]
+    public string AiType { get; set; }
+    [JsonProperty(PropertyName = "created")]
+    public int Created { get; set; }
+    [JsonProperty(PropertyName = "model")]
+    public string Model { get; set; }
+    [JsonProperty(PropertyName = "choices")]
+    public List<Choices_GPT4> Choices { get; set; }
+    [JsonProperty(PropertyName = "usage")]
+    public Usage Usage { get; set; }
+}
+
+public class Choices_GPT4
+{
+    [JsonProperty(PropertyName = "message")]
+    public Message_GPT4 Message { get; set; }
+    [JsonProperty(PropertyName = "index")]
+    public int Index { get; set; }
+    [JsonProperty(PropertyName = "logprobs")]
+    public object Logprobs { get; set; }
+    [JsonProperty(PropertyName = "finish_reason")]
+    public string Finish_reason { get; set; }
+}
